@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/msv-itau-teste/msv-itau-teste.iml" filepath="$PROJECT_DIR$/msv-itau-teste/msv-itau-teste.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/msv-itau-teste.git.iml" filepath="$PROJECT_DIR$/.idea/msv-itau-teste.git.iml" />
+    </modules>
+  </component>
+</project>
