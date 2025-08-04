@@ -1,6 +1,17 @@
 spring:
   application:
     name: api
+  cloud:
+    aws:
+      s3:
+        bucket-name: ${aws_s3_bucket_name}
+        endpoint: ${aws_s3_endpoint}
+        path-style-access-enabled: true
+      credentials:
+        access-key: test
+        secret-key: test
+      region:
+        static: us-east-1
   datasource:
     url: jdbc:h2:mem:my-database
     driver-class-name: org.h2.Driver

@@ -6,13 +6,16 @@ import com.test.itau.domain.product.api.v1.response.ProductResponse;
 import com.test.itau.domain.product.enums.ProductSortBy;
 import com.test.itau.domain.product.usecase.CreateProductUseCase;
 import com.test.itau.domain.product.usecase.ListProductUseCase;
+import com.test.itau.domain.product.usecase.UploadProductFile;
 import com.test.itau.shared.models.SortDirection;
+import com.test.itau.shared.response.ApiServiceResponse;
 import com.test.itau.shared.response.PageDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -26,6 +29,7 @@ public class ProductController {
 
     private final CreateProductUseCase createProductUseCase;
     private final ListProductUseCase listUseCase;
+    private final UploadProductFile uploadProductFile;
 
     @PostMapping
     public ResponseEntity<ProductResponse> add(@RequestBody ProductRequest request, UriComponentsBuilder uriComponentsBuilder) {
@@ -52,6 +56,14 @@ public class ProductController {
         var filter = new ProductFilter(name, pageable);
         var response = listUseCase.execute(filter);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping(value = "/upload")
+    public ResponseEntity<ApiServiceResponse> upload(@RequestParam MultipartFile file) {
+        log.info("Init Uploading file {}", file.getOriginalFilename());
+        var response = uploadProductFile.execute(file);
+        log.info("Finished Upload file {}", file.getOriginalFilename());
         return ResponseEntity.ok(response);
     }
 }
