@@ -1,7 +1,6 @@
 package com.test.itau.domain.automovel.api.v1.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 
