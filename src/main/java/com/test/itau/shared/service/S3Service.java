@@ -22,18 +22,22 @@ public class S3Service {
         this.bucket = bucket;
     }
 
-    public void uploadFile(String fileName, InputStream inputStream) {
-      log.info("Uploading file {} to bucket {}", fileName, bucket);
-      var request = PutObjectRequest.builder()
-              .bucket(bucket)
-              .key(fileName)
-              .build();
+    public String uploadFile(String fileName, InputStream inputStream) {
+        String url;
+        log.info("Uploading file {} to bucket {}", fileName, bucket);
+        var request = PutObjectRequest.builder()
+                .bucket(bucket)
+                .key(fileName)
+                .build();
 
         try {
             s3Client.putObject(request, RequestBody.fromInputStream(inputStream, inputStream.available()));
+            url = s3Client.utilities().getUrl(b ->  b.bucket(bucket).key(fileName)).toExternalForm();
         } catch (IOException e) {
             log.error("Error while uploading file {} to bucket {}", fileName, bucket, e);
             throw new ServiceUnavailableException(e.getMessage());
         }
+
+        return url;
     }
 }
